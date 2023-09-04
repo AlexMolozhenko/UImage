@@ -4,11 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\UserImage;
+use Cassandra\Date;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class UserImageSeeder extends Seeder
 {
+    const COUNT_IMAGES = 100000;
     /**
      * Run the database seeds.
      *
@@ -17,34 +19,18 @@ class UserImageSeeder extends Seeder
     public function run()
     {
         $users = User::all();
-        $toInsert = [];
-
-        foreach ($users as $user) {
-            $imageData = UserImage::factory()->make(['user_id' => $user->id])->toArray();
-            $toInsert[] = $imageData;
-        }
-
-        for ($i = 0; $i < 90000;) {
+        for ($i = 0; $i < self::COUNT_IMAGES;) {
             $randomUser = $users->random();
 
-            if ($i <= 89990) {
+            if ($i < 99990) {
                 $randomCount = rand(1, 10);
             } else {
                 $randomCount = 1;
             }
 
-            for ($j = 0; $j < $randomCount; $j++) {
-                $imageData = UserImage::factory()->make(['user_id' => $randomUser->id])->toArray();
-                $toInsert[] = $imageData;
-            }
+             UserImage::factory()->count($randomCount)->create(['user_id' => $randomUser->id]);
 
             $i += $randomCount;
-        }
-
-        $chunks = array_chunk($toInsert, 500);
-
-        foreach ($chunks as $chunk) {
-            DB::table('user_images')->insert($chunk);
         }
     }
 }

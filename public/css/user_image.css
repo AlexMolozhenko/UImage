@@ -1,0 +1,42 @@
+body{
+    background: #f3ffa6;
+    padding: 30px;
+}
+#create-user-form{
+    display: flex;
+}
+#create-user-form input{
+    margin-left: 10px;
+    margin-right: 25px;
+}
+.selectedOrder{
+    margin-left: 10px;
+}
+.trSeparator{
+    background-color: blue;
+    height: 10px;
+}
+.divSwitch{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 25px;
+}
+.pagesize{
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
+.page{
+    margin-right: 20px;
+    margin-left: 20px;
+
+}
+.pageSwitcher{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+.page{
+    display: flex;
+    flex-direction: row;
+}
